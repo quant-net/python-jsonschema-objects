@@ -2,6 +2,7 @@ import python_jsonschema_objects.util as util
 import python_jsonschema_objects.validators as validators
 import python_jsonschema_objects.pattern_properties as pattern_properties
 from python_jsonschema_objects.literals import LiteralValue
+from python_jsonschema_objects.wrapper_types import ArrayWrapper
 
 import copy
 import collections
@@ -320,7 +321,7 @@ class ProtocolBase(collections.abc.MutableMapping):
             if val is None:
                 continue
 
-            if isinstance(val, ProtocolBase):
+            if isinstance(val, (ProtocolBase, ArrayWrapper, LiteralValue)):
                 val.validate()
             elif getattr(val, "isLiteralClass", None) is True:
                 val.validate()
